@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _runSpeed;
     private PlayerAnimator _animator;
     private PlayerControls _controls;
+    private Rigidbody _rigidBody;
 
     void Awake()
     {
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Utils.TryGetComponentNullCheck(this, out _animator, "No animator detected");
+        Utils.TryGetComponentNullCheck(this, out _rigidBody, "No rigidbody detected");
     }
 
     void OnEnable()
@@ -47,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
         Vector3 inputAs3D = new(moveInput.x, 0.0f, moveInput.y);
 
-        if(isRunning)   transform.Translate(_runSpeed * Time.deltaTime * inputAs3D);
-        else            transform.Translate(_walkSpeed * Time.deltaTime * inputAs3D);
+        if(isRunning)   _rigidBody.MovePosition(_rigidBody.position + _runSpeed * Time.deltaTime * inputAs3D);
+        else            _rigidBody.MovePosition(_rigidBody.position + _walkSpeed * Time.deltaTime * inputAs3D);
     }
 }
