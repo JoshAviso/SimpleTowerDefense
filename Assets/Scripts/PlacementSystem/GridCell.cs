@@ -14,22 +14,14 @@ public class GridCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         get { return _intersectingCount > 0; }
     }
 
-    [SerializeField, HideInInspector] private GridGenerator _gridReference;
-
     void Start()
     {
-        if(_gridReference == null)
-            Debug.LogWarning("[WARN]: GridCell missing a reference to the grid.");
 
         if(_displayCube != null)
             Utils.TryGetComponentNullCheck(_displayCube, out _displayCubeDisplayMesh, "No material to display cube!");
 
         Init();
         HideDisplayCube();
-    }
-
-    public void SetGridRef(GridGenerator grid){
-        _gridReference = grid;
     }
 
     public void SetDimension(float size){
@@ -39,8 +31,8 @@ public class GridCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             collider.size = new(size, originalDepth, size);
     }
 
-    private void ShowDisplayCube(GridGenerator.GridCellDisplayCubeStyle displayStyle){        
-        Material targetMat = _gridReference.GetDisplayMatReference(displayStyle);
+    private void ShowDisplayCube(GridManager.GridCellDisplayCubeStyle displayStyle){        
+        Material targetMat = GridManager.Instance.GetDisplayMatReference(displayStyle);
         if(targetMat == null){
             HideDisplayCube();
             return;
@@ -61,9 +53,9 @@ public class GridCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if(!_isPlayerInside){
             if(_hasIntersecting)
-                ShowDisplayCube(GridGenerator.GridCellDisplayCubeStyle.Bad);
+                ShowDisplayCube(GridManager.GridCellDisplayCubeStyle.Bad);
             else
-                ShowDisplayCube(GridGenerator.GridCellDisplayCubeStyle.Good);
+                ShowDisplayCube(GridManager.GridCellDisplayCubeStyle.Good);
         }
     }
 

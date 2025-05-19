@@ -9,30 +9,12 @@ public class GridGenerator : MonoBehaviour
         TopLeft, TopRight, BottomLeft, BottomRight, Centered
     }
 
-    [Serializable] public enum GridCellDisplayCubeStyle {
-        Good, Bad
-    }
-
-    [Serializable] public struct DisplayStyleMat {
-        public GridCellDisplayCubeStyle Style;
-        [SerializeReference] public Material MaterialReference;
-    }
-
     [SerializeReference] private GameObject _cellTemplate;
     [SerializeField] private float _cellSize = 1.0f;
     [SerializeField] private float _cellGap = 0.1f;
     [SerializeField] private Vector2 _gridDimensions = new();
     [SerializeField] private GridOriginPosition _originPosition;
     [SerializeField, HideInInspector] private List<GameObject> _generatedCells = new();
-    [SerializeField] private List<DisplayStyleMat> _displayStyleMats = new();
-    private Dictionary<GridCellDisplayCubeStyle, Material> _displayStyleMatMap = new();
-
-    public Material GetDisplayMatReference(GridCellDisplayCubeStyle style){
-        if(!Utils.GetMapValue(_displayStyleMatMap, style, out Material targetMat))
-            return null;
-
-        return targetMat;
-    }
 
     [EditorButton("Generate New Grid")]
     private void GenerateGrid()
@@ -54,7 +36,6 @@ public class GridGenerator : MonoBehaviour
                 }
 
                 cellScript.SetDimension(_cellSize);
-                cellScript.SetGridRef(this);
                 cell.transform.SetParent(transform);
                 _generatedCells.Add(cell);
             }
@@ -90,17 +71,5 @@ public class GridGenerator : MonoBehaviour
         }
 
         return transform.position;
-    }
-
-    void Start()
-    {
-        Init();
-    }
-
-    private void Init(){        
-        _displayStyleMatMap.Clear();
-
-        foreach(DisplayStyleMat displayStyle in _displayStyleMats)
-            _displayStyleMatMap.Add(displayStyle.Style, displayStyle.MaterialReference);
     }
 }
