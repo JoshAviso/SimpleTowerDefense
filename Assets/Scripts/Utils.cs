@@ -5,7 +5,9 @@ using UnityEngine;
 
 public static class Utils {
 
-    public static bool TryGetComponentNullCheck<T>(MonoBehaviour script, out T result, string warningString){ 
+    #region Component Utils
+    public static bool TryGetComponentNullCheck<T>(MonoBehaviour script, out T result, string warningString)
+    {
         return TryGetComponentNullCheck<T>(script.gameObject, out result, warningString);
     }
 
@@ -25,14 +27,28 @@ public static class Utils {
         return true;
     }
 
-    public static bool GetMapValue<T,T2>(Dictionary<T,T2> map, T Key, out T2 outputVal){
-        if(map == null){
+    public static bool ParentHasComponent<T>(Component component)
+    {
+        return ParentHasComponent<T>(component.gameObject);
+    }
+
+    public static bool ParentHasComponent<T>(GameObject gameObject)
+    {
+        return gameObject.GetComponentInParent<T>() != null;
+    }
+    #endregion
+
+    public static bool GetMapValue<T, T2>(Dictionary<T, T2> map, T Key, out T2 outputVal)
+    {
+        if (map == null)
+        {
             Debug.LogWarning("[WARN]: Null map");
             outputVal = default(T2);
             return false;
         }
 
-        if(!map.ContainsKey(Key)){
+        if (!map.ContainsKey(Key))
+        {
             Debug.LogWarning($"[WARN]: No key ({Key.ToString()}) in map ({map})");
             outputVal = default(T2);
             return false;
@@ -42,8 +58,6 @@ public static class Utils {
         return true;
     }
 
-    public static bool IsPlayer<T>(GameObject gameObject){
-        return gameObject.GetComponentInParent<T>() != null;
-    }
+    
 
 }

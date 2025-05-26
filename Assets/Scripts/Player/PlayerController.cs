@@ -5,11 +5,17 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float _walkSpeed;
-    [SerializeField] private float _runSpeed;
+    [SerializeReference] private PlayerStats _playerStats;
+
+    #region References
     private PlayerAnimator _animator;
     private PlayerControls _controls;
     private Rigidbody _rigidBody;
+    #endregion
+
+    #region State
+    private float _currentSpeedMod = 1.0f;
+    #endregion
 
     void Awake()
     {
@@ -27,7 +33,7 @@ public class PlayerController : MonoBehaviour
         _controls.Actions.Enable();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         CheckPlayerInput();
     }
@@ -49,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
         Vector3 inputAs3D = new(moveInput.x, 0.0f, moveInput.y);
 
-        if(isRunning)   _rigidBody.MovePosition(_rigidBody.position + _runSpeed * Time.deltaTime * inputAs3D);
-        else            _rigidBody.MovePosition(_rigidBody.position + _walkSpeed * Time.deltaTime * inputAs3D);
+        if(isRunning)   _rigidBody.MovePosition(_rigidBody.position + _playerStats.BaseRunSpeed *_currentSpeedMod * Time.fixedDeltaTime * inputAs3D);
+        else            _rigidBody.MovePosition(_rigidBody.position + _playerStats.BaseWalkSpeed *_currentSpeedMod * Time.fixedDeltaTime * inputAs3D);
     }
 }

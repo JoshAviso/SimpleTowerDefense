@@ -67,7 +67,7 @@ public class GridCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnTriggerEnter(Collider other)
     {
         _intersectingCount ++;
-        if(Utils.IsPlayer<PlayerController>(other.gameObject)){
+        if(Utils.ParentHasComponent<PlayerController>(other)){
             _isPlayerInside = true;
         }      
     }
@@ -77,7 +77,7 @@ public class GridCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if(--_intersectingCount <= 0)
             _intersectingCount = 0;
 
-        if(Utils.IsPlayer<PlayerController>(other.gameObject)){
+        if(Utils.ParentHasComponent<PlayerController>(other)){
             _isPlayerInside = false;
         }      
     }
