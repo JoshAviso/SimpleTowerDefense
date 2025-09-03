@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class DamageSource : MonoBehaviour
 {
-    [SerializeReference] public DamageSourceStats Stats;
-    public GameObject Owner;
-    void Awake()
-    {
-        if (Owner == null) Owner = gameObject;
-    }
+    [Header("Settings")]
+    [SerializeReference] private DamageSourceStats _stats;
+    [SerializeField] private EHitboxLayer _targetLayers;
+
+
+    public DamageSourceStats Stats => _stats;
+    public EHitboxLayer TargetLayers => _targetLayers;
+    void Start(){ if (_stats == null) Destroy(this); }
 }

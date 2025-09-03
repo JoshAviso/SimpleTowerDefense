@@ -287,9 +287,9 @@ namespace TowerDefense.UI
 			float totalBaseHealth = 0f;
 			for (int i = 0; i < homeBaseCount; i++)
 			{
-				Damageable config = homeBases[i].configuration;
-				totalRemainingHealth += config.currentHealth;
-				totalBaseHealth += config.maxHealth;
+				// Damageable config = homeBases[i].configuration;
+				// totalRemainingHealth += config.currentHealth;
+				// totalBaseHealth += config.maxHealth;
 			}
 			int score = CalculateScore(totalRemainingHealth, totalBaseHealth);
 			return score;

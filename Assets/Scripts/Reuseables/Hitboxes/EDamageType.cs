@@ -1,4 +1,8 @@
-public enum EDamageType
+using System;
+
+[Flags] public enum EDamageType
 {
-    Normal, Critical
+    None = 0,
+    Critical = 1 << 0,
+    Healing = 1 << 1,
 }

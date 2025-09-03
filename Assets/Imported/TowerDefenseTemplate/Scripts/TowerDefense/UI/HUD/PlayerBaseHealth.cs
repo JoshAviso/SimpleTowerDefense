@@ -33,11 +33,11 @@ namespace TowerDefense.UI.HUD
 			}
 			if (levelManager.numberOfHomeBases > 0)
 			{
-				Damageable baseConfig = levelManager.playerHomeBases[0].configuration;
-				baseConfig.damaged += OnBaseDamaged;
-				float currentHealth = baseConfig.currentHealth;
-				float noramlisedHealth = baseConfig.normalisedHealth;
-				m_MaxHealth = currentHealth / noramlisedHealth;
+				// Damageable baseConfig = levelManager.playerHomeBases[0].configuration;
+				// baseConfig.damaged += OnBaseDamaged;
+				// float currentHealth = baseConfig.currentHealth;
+				// float noramlisedHealth = baseConfig.normalisedHealth;
+				// m_MaxHealth = currentHealth / noramlisedHealth;
 			}
 			UpdateDisplay();
 		}

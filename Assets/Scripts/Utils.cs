@@ -38,6 +38,37 @@ public static class Utils {
     }
     #endregion
 
+    #region Logging
+    public static void Log(MonoBehaviour source, string message)
+    {
+        Debug.Log($"[INFO]({source.gameObject.name}, {source}): {message}");
+    }
+
+    public static void LogWarning(MonoBehaviour source, string message)
+    {
+        Debug.Log($"[WARN]({source.gameObject.name}, {source}): {message}");
+    }
+
+    public static void LogError(MonoBehaviour source, string message)
+    {
+        Debug.Log($"[ERR]({source.gameObject.name}, {source}): {message}");
+    }
+    public static void Log(string message)
+    {
+        Debug.Log($"[INFO]: {message}");
+    }
+
+    public static void LogWarning(string message)
+    {
+        Debug.Log($"[WARN]: {message}");
+    }
+
+    public static void LogError(string message)
+    {
+        Debug.Log($"[ERR]: {message}");
+    }
+    #endregion
+
     public static bool GetMapValue<T, T2>(Dictionary<T, T2> map, T Key, out T2 outputVal)
     {
         if (map == null)
